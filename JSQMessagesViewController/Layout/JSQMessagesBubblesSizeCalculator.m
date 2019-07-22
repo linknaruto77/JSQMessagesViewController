@@ -117,7 +117,7 @@
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
 
         UIFont *font = layout.messageBubbleFont;
-        NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %f\">%@</span>", font.fontName, font.pointSize, [htmlString text]];
+        NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %f\">%@</span>", font.fontName, font.pointSize, [messageData text]];
         NSAttributedString *attrStr =
         [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
