@@ -116,7 +116,8 @@
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
 
-        NSString *htmlString = [messageData text];
+        UIFont *font = layout.messageBubbleFont;
+        NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %f\">%@</span>", font.fontName, font.pointSize, [messageItem text]];
         NSAttributedString *attrStr =
         [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
@@ -124,7 +125,7 @@
         
         CGRect stringRect = [[attrStr string] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
                                                              options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                          attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
+                                                          attributes:@{ NSFontAttributeName : font }
                                                              context:nil];
 
         CGSize stringSize = CGRectIntegral(stringRect).size;

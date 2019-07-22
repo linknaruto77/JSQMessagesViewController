@@ -282,10 +282,10 @@ JSQMessagesKeyboardControllerDelegate>
     [self.collectionView.collectionViewLayout invalidateLayout];
 
     if (self.automaticallyScrollsToMostRecentMessage) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             [self scrollToBottomAnimated:NO];
             [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
-        });
+//        });
     }
 
     [self jsq_updateKeyboardTriggerPoint];
@@ -565,11 +565,12 @@ JSQMessagesKeyboardControllerDelegate>
 //                                                                           attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
 //        }
         
-        NSString *htmlString = [messageItem text];
+        UIFont *font = collectionView.collectionViewLayout.messageBubbleFont;
+        NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %f\">%@</span>", font.fontName, font.pointSize, [messageItem text]];
         NSAttributedString *attrStr =
         [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
-                              documentAttributes:nil error:nil];
+                              documentAttributes:@{ NSFontAttributeName : font } error:nil];
         cell.textView.attributedText = attrStr;
 
         NSParameterAssert(cell.textView.text != nil);
