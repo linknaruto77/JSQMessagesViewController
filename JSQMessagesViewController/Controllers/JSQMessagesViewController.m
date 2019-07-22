@@ -517,7 +517,15 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     cell.delegate = collectionView;
 
     if (!isMediaMessage) {
-        cell.textView.text = [messageItem text];
+        
+        NSString *htmlString = [messageItem text];
+        NSAttributedString *attrStr =
+        [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
+                                         options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                              documentAttributes:nil error:nil];
+        cell.textView.attributedText = attrStr;
+        
+//        cell.textView.text = [messageItem text];
         NSParameterAssert(cell.textView.text != nil);
 
         id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
