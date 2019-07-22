@@ -570,7 +570,7 @@ JSQMessagesKeyboardControllerDelegate>
         NSAttributedString *attrStr =
         [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
-                              documentAttributes:@{ NSFontAttributeName : font } error:nil];
+                              documentAttributes:nil error:nil];
         cell.textView.attributedText = attrStr;
 
         NSParameterAssert(cell.textView.text != nil);
