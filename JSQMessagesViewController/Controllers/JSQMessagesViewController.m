@@ -572,6 +572,7 @@ JSQMessagesKeyboardControllerDelegate>
                                          options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
                               documentAttributes:nil error:nil];
         cell.textView.attributedText = attrStr;
+        cell.textView.userInteractionEnabled = NO;
 
         NSParameterAssert(cell.textView.text != nil);
 
